@@ -58,6 +58,16 @@ class _HomePageState extends State<HomePage> {
         title: const TextField(
           decoration: InputDecoration(hintText: 'Pesquisar..'),
         ),
+        actions: <Widget>[
+          IconButton(
+            icon: Observer(
+              builder: (_) {
+                return Text('${controller.totalChecked.toString()} Checked');
+              },
+            ),
+            onPressed: () {},
+          ),
+        ],
       ),
       body: Observer(
         builder: (_) {

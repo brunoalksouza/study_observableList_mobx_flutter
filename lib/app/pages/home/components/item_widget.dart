@@ -3,12 +3,11 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:observablelist_mobx_flutter/app/models/item_model.dart';
 
 class ItemWidget extends StatelessWidget {
-  ItemWidget(
-      {Key? key, required this.item, required Null Function() removeClicked})
-      : super(key: key);
-
-  final Function removeClicked = () => {};
   final ItemModel item;
+  final Function removeClicked;
+
+  ItemWidget({Key? key, required this.item, required this.removeClicked})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +25,8 @@ class ItemWidget extends StatelessWidget {
           ),
           trailing: IconButton(
             icon: const Icon(Icons.delete),
-            onPressed: () => {
-              removeClicked(),
-            },
+            onPressed: () =>
+                removeClicked(), // Invoke the removeClicked function
           ),
         );
       },
