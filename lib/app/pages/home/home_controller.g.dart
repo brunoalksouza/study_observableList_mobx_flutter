@@ -16,6 +16,13 @@ mixin _$HomeController on _HomeControllerBase, Store {
       (_$totalCheckedComputed ??= Computed<int>(() => super.totalChecked,
               name: '_HomeControllerBase.totalChecked'))
           .value;
+  Computed<List<ItemModel>>? _$ListFilteredComputed;
+
+  @override
+  List<ItemModel> get ListFiltered => (_$ListFilteredComputed ??=
+          Computed<List<ItemModel>>(() => super.ListFiltered,
+              name: '_HomeControllerBase.ListFiltered'))
+      .value;
 
   late final _$listItemsAtom =
       Atom(name: '_HomeControllerBase.listItems', context: context);
@@ -33,8 +40,35 @@ mixin _$HomeController on _HomeControllerBase, Store {
     });
   }
 
+  late final _$filterAtom =
+      Atom(name: '_HomeControllerBase.filter', context: context);
+
+  @override
+  String get filter {
+    _$filterAtom.reportRead();
+    return super.filter;
+  }
+
+  @override
+  set filter(String value) {
+    _$filterAtom.reportWrite(value, super.filter, () {
+      super.filter = value;
+    });
+  }
+
   late final _$_HomeControllerBaseActionController =
       ActionController(name: '_HomeControllerBase', context: context);
+
+  @override
+  dynamic setFilter(String value) {
+    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
+        name: '_HomeControllerBase.setFilter');
+    try {
+      return super.setFilter(value);
+    } finally {
+      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic addItem(ItemModel model) {
@@ -62,7 +96,9 @@ mixin _$HomeController on _HomeControllerBase, Store {
   String toString() {
     return '''
 listItems: ${listItems},
-totalChecked: ${totalChecked}
+filter: ${filter},
+totalChecked: ${totalChecked},
+ListFiltered: ${ListFiltered}
     ''';
   }
 }

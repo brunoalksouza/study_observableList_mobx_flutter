@@ -23,7 +23,7 @@ class _HomePageState extends State<HomePage> {
         return AlertDialog(
           title: const Text('Adicionar item'),
           content: TextField(
-            autofocus: true,
+            autofocus: true, 
             onChanged: model.setTitle,
             decoration: const InputDecoration(
               border: OutlineInputBorder(),
@@ -55,8 +55,9 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue,
-        title: const TextField(
-          decoration: InputDecoration(hintText: 'Pesquisar..'),
+        title: TextField(
+          onChanged: controller.setFilter,
+          decoration: const InputDecoration(hintText: 'Pesquisar..'),
         ),
         actions: <Widget>[
           IconButton(
@@ -74,7 +75,7 @@ class _HomePageState extends State<HomePage> {
           return ListView.builder(
             itemCount: controller.listItems.length,
             itemBuilder: (_, index) {
-              var item = controller.listItems[index];
+              var item = controller.ListFiltered[index];
               return ItemWidget(
                 item: item,
                 removeClicked: () {
